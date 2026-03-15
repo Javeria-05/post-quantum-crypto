@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Quantum Cryptography Demo</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Post-Quantum Cryptography Demo</h1>
+        <p>This website uses <strong>ML-KEM 768</strong> - the NIST standard for quantum-safe encryption.</p>
+        
+        <div class="section">
+            <h2>1. Generate Keys</h2>
+            <button id="generateBtn">Generate New Key Pair</button>
+            <div class="key-display">
+                <h3>Public Key (share this):</h3>
+                <textarea id="publicKey" rows="3" readonly></textarea>
+                <h3>Private Key (keep secret!):</h3>
+                <textarea id="privateKey" rows="3" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Encrypt a Message</h2>
+            <p>Paste recipient's public key above and type your message:</p>
+            <textarea id="messageToEncrypt" rows="3" placeholder="Type your secret message here..."></textarea>
+            <button id="encryptBtn">Encrypt Message</button>
+            <div class="result">
+                <h3>Encrypted Result:</h3>
+                <textarea id="encryptedResult" rows="4" readonly></textarea>
+                <p class="note">This contains everything needed to decrypt.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Decrypt a Message</h2>
+            <p>Paste your private key and the encrypted message:</p>
+            <textarea id="privateKeyForDecrypt" rows="3" placeholder="Paste your private key here..."></textarea>
+            <textarea id="encryptedToDecrypt" rows="4" placeholder="Paste the encrypted message here..."></textarea>
+            <button id="decryptBtn">Decrypt Message</button>
+            <div class="result">
+                <h3>Decrypted Message:</h3>
+                <textarea id="decryptedResult" rows="3" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
