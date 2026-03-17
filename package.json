@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@noble/post-quantum": "^0.5.4"
+    "@noble/post-quantum": "^0.5.4",
+    "firebase": "^12.10.0",
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "vite": "^4.5.0"
