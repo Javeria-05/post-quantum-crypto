@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { auth } from '../firebase/config';
 import { addActivity } from '../services/historyService';
 import { ml_kem768 } from '@noble/post-quantum/ml-kem.js';
+import Benchmark from '../components/Benchmark';
+import FileVault from '../components/FileVault';  // 👈 Import FileVault
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -12,6 +14,19 @@ function toBase64(bytes) {
 
 function fromBase64(base64) {
   return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+}
+
+// File download helper (keep for message encryption downloads)
+function downloadFile(data, filename, type = 'application/octet-stream') {
+  const blob = new Blob([data], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 export default function Dashboard() {
@@ -33,11 +48,8 @@ export default function Dashboard() {
       
       setPublicKey(pubB64);
       setPrivateKey(privB64);
-      
-      // Auto-fill recipient public key for encryption
       setRecipientPublicKey(pubB64);
 
-      // Save to history
       if (auth.currentUser) {
         await addActivity(auth.currentUser.uid, 'key_generation', {
           publicKeyLength: keys.publicKey.length
@@ -59,7 +71,6 @@ export default function Dashboard() {
       const pubKey = fromBase64(recipientPublicKey);
       const { cipherText, sharedSecret } = ml_kem768.encapsulate(pubKey);
       
-      // Simple XOR encryption
       const msgBytes = encoder.encode(message);
       const encrypted = new Uint8Array(msgBytes.length);
       for (let i = 0; i < msgBytes.length; i++) {
@@ -74,7 +85,6 @@ export default function Dashboard() {
 
       setEncryptedResult(JSON.stringify(result));
 
-      // Save to history
       if (auth.currentUser) {
         await addActivity(auth.currentUser.uid, 'encryption', {
           messageLength: message.length
@@ -101,7 +111,6 @@ export default function Dashboard() {
 
       const sharedSecret = ml_kem768.decapsulate(cipherText, privKey);
 
-      // XOR decryption
       const decrypted = new Uint8Array(length);
       for (let i = 0; i < length; i++) {
         decrypted[i] = encrypted[i] ^ sharedSecret[i % sharedSecret.length];
@@ -109,7 +118,6 @@ export default function Dashboard() {
 
       setDecryptedResult(decoder.decode(decrypted));
 
-      // Save to history
       if (auth.currentUser) {
         await addActivity(auth.currentUser.uid, 'decryption', {
           messageLength: length
@@ -124,6 +132,7 @@ export default function Dashboard() {
     <div className="container">
       <h1 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Quantum-Safe Dashboard</h1>
       
+      {/* Main Dashboard Grid - Message Encryption Section */}
       <div className="dashboard-grid">
         {/* Key Generation Card */}
         <div className="dashboard-card">
@@ -214,6 +223,14 @@ export default function Dashboard() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* 👉 File Vault Component - Advanced File Encryption (Independent) */}
+      <FileVault publicKey={publicKey} privateKey={privateKey} />
+
+      {/* 👉 Benchmark Component */}
+      <div style={{ marginTop: '3rem' }}>
+        <Benchmark />
       </div>
     </div>
   );
