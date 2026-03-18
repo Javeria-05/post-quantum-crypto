@@ -1008,124 +1008,187 @@ export default function Home() {
           border: none !important;
         }
 
-        /* ========== MOBILE RESPONSIVE FIX ========== */
+        /* ========== MOBILE RESPONSIVE - SAME LAYOUT ========== */
         @media (max-width: 768px) {
           .container {
-            grid-template-columns: 1fr !important;
-            gap: 2rem !important;
+            grid-template-columns: 1fr 1fr !important;  /* 2 columns same */
+            gap: 1.5rem !important;
             padding: 1rem !important;
           }
           
           .left {
-            order: 1 !important;
-            text-align: center !important;
+            grid-column: 1 / 2 !important;
+            text-align: left !important;
           }
           
           .right {
-            order: 2 !important;
-            margin-top: 2rem !important;
-            width: 100% !important;
+            grid-column: 2 / 3 !important;
+            margin-top: 0 !important;
             display: flex !important;
             justify-content: center !important;
+            align-items: center !important;
           }
           
-          .visual {
-            width: 280px !important;
-            height: 280px !important;
-            margin: 0 auto !important;
+          .title {
+            font-size: 2.5rem !important;
+          }
+          
+          .desc {
+            font-size: 0.9rem !important;
+            margin-left: 1.5rem !important;
           }
           
           .stats-container {
-            flex-direction: column !important;
-            gap: 1rem !important;
-            width: 100% !important;
-          }
-          
-          .stat-card {
-            width: 100% !important;
-            margin: 0 !important;
-          }
-          
-          .feature-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            flex-direction: row !important;
             gap: 0.5rem !important;
           }
           
+          .stat-card {
+            padding: 0.8rem 0.5rem !important;
+          }
+          
+          .stat-value {
+            font-size: 1.2rem !important;
+          }
+          
+          .stat-label {
+            font-size: 0.55rem !important;
+          }
+          
+          .feature-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 0.4rem !important;
+          }
+          
+          .feature-item {
+            padding: 0.5rem !important;
+          }
+          
+          .feature-icon {
+            font-size: 0.9rem !important;
+          }
+          
+          .feature-name {
+            font-size: 0.7rem !important;
+          }
+          
           .auth-buttons {
-            flex-direction: column !important;
+            flex-direction: row !important;
             gap: 0.5rem !important;
           }
           
           .btn-primary, .btn-secondary {
-            width: 100% !important;
+            width: auto !important;
+            padding: 0.5rem 1rem !important;
+            font-size: 0.8rem !important;
           }
           
           .footer {
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-            text-align: center !important;
+            flex-direction: row !important;
+            font-size: 0.7rem !important;
+          }
+          
+          .visual {
+            width: 250px !important;
+            height: 250px !important;
           }
           
           .grid {
-            background-size: 30px 30px !important;
+            background-size: 25px 25px !important;
           }
           
           .circle {
-            width: 220px !important;
-            height: 220px !important;
+            width: 200px !important;
+            height: 200px !important;
           }
           
           .circle.c2 {
-            width: 180px !important;
-            height: 180px !important;
+            width: 160px !important;
+            height: 160px !important;
           }
           
           .circle.c3 {
-            width: 140px !important;
-            height: 140px !important;
+            width: 120px !important;
+            height: 120px !important;
           }
           
           .circle.c4 {
-            width: 100px !important;
-            height: 100px !important;
+            width: 80px !important;
+            height: 80px !important;
           }
           
           .code-block {
-            width: 180px !important;
+            width: 160px !important;
             padding: 1rem !important;
           }
           
           .code-block pre {
-            font-size: 0.65rem !important;
+            font-size: 0.6rem !important;
           }
         }
 
         /* Small phones */
         @media (max-width: 480px) {
+          .container {
+            gap: 1rem !important;
+          }
+          
           .title {
-            font-size: 2.2rem !important;
+            font-size: 2rem !important;
           }
           
-          .feature-grid {
-            grid-template-columns: 1fr !important;
+          .stat-value {
+            font-size: 1rem !important;
           }
           
-          .badge-wrapper {
-            width: 100% !important;
+          .stat-label {
+            font-size: 0.5rem !important;
           }
           
-          .chip {
-            width: 100% !important;
-            justify-content: center !important;
+          .feature-item {
+            padding: 0.4rem !important;
+          }
+          
+          .feature-name {
+            font-size: 0.65rem !important;
+          }
+          
+          .auth-buttons {
+            gap: 0.3rem !important;
+          }
+          
+          .btn-primary, .btn-secondary {
+            padding: 0.4rem 0.8rem !important;
+            font-size: 0.7rem !important;
           }
           
           .visual {
-            width: 220px !important;
-            height: 220px !important;
+            width: 200px !important;
+            height: 200px !important;
           }
           
-          .modal-actions {
-            flex-direction: column !important;
+          .circle {
+            width: 160px !important;
+            height: 160px !important;
+          }
+          
+          .circle.c2 {
+            width: 130px !important;
+            height: 130px !important;
+          }
+          
+          .circle.c3 {
+            width: 100px !important;
+            height: 100px !important;
+          }
+          
+          .circle.c4 {
+            width: 70px !important;
+            height: 70px !important;
+          }
+          
+          .code-block {
+            width: 140px !important;
           }
         }
       `}</style>

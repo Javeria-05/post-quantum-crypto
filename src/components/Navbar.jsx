@@ -48,10 +48,10 @@ export default function Navbar({ user }) {
           QuantumSafe
         </Link>
 
-        {/* RIGHT - All Links including Home */}
+        {/* RIGHT - All Links */}
         <div className={`nav-right ${menuOpen ? 'show' : ''}`}>
           
-          {/* Home - Now on Right */}
+          {/* Home Link */}
           <Link 
             to="/" 
             className="nav-link"
@@ -171,7 +171,6 @@ export default function Navbar({ user }) {
           align-items: center;
         }
 
-        /* Logo - Left (Updated with clamp) */
         .logo {
           font-size: clamp(1.3rem, 4vw, 2rem);
           font-weight: 700;
@@ -185,15 +184,6 @@ export default function Navbar({ user }) {
           color: var(--secondary);
         }
 
-        /* Sirf extreme small devices ke liye */
-        @media only screen and (max-width: 350px) {
-          .logo {
-            font-size: 1.1rem;
-            white-space: normal;
-          }
-        }
-
-        /* Right side - all links */
         .nav-right {
           display: flex;
           align-items: center;
@@ -233,7 +223,6 @@ export default function Navbar({ user }) {
           color: var(--primary);
         }
 
-        /* Logout button - Blue */
         .logout-btn {
           background: linear-gradient(135deg, var(--primary), var(--secondary));
           color: white;
@@ -251,7 +240,6 @@ export default function Navbar({ user }) {
           box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
 
-        /* Hamburger - hidden on desktop */
         .hamburger {
           display: none;
           background: none;
@@ -261,19 +249,25 @@ export default function Navbar({ user }) {
           color: var(--text);
         }
 
-        /* Mobile Responsive */
-        @media only screen and (max-width: 600px) {
+        /* Mobile Responsive - Same Layout */
+        @media only screen and (max-width: 768px) {
           .nav-container {
-            flex-wrap: wrap;
+            padding: 0.75rem 1rem;
           }
 
           .nav-right {
             display: none;
-            width: 100%;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
             flex-direction: column;
-            align-items: flex-start;
-            padding: 1rem 0;
-            gap: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            gap: 0.75rem;
           }
 
           .nav-right.show {
@@ -286,16 +280,18 @@ export default function Navbar({ user }) {
 
           .nav-link, .theme-toggle, .logout-btn, .auth-btn {
             width: 100%;
-            text-align: left;
-            padding: 0.75rem 0;
-          }
-
-          .logout-btn {
             text-align: center;
+            padding: 0.75rem;
           }
         }
 
-        /* Modal Styles */
+        @media only screen and (max-width: 350px) {
+          .logo {
+            font-size: 1.1rem;
+            white-space: normal;
+          }
+        }
+
         .modal-bg {
           position: fixed;
           inset: 0;
