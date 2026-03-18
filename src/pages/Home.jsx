@@ -63,6 +63,15 @@ export default function Home() {
     fetchRealStats();
   }, []);
 
+  // Auth state listener
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log('Auth state changed:', user ? user.email : 'No user');
+      setUser(user);
+    });
+    return unsubscribe;
+  }, []);
+
   // Particle Background Effect
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -125,9 +134,13 @@ export default function Home() {
   }, []);
 
   const handleProtectedNav = (route, name) => {
+    console.log('Protected nav clicked:', { user: !!user, route, name });
+    
     if (user) {
+      console.log('User logged in, navigating to:', route);
       navigate(route);
     } else {
+      console.log('User not logged in, showing modal');
       setModalMessage(`Please login to access ${name}`);
       setShowModal(true);
     }
@@ -1008,25 +1021,25 @@ export default function Home() {
           border: none !important;
         }
 
-        /* ========== MOBILE RESPONSIVE - SAME LAYOUT ========== */
+        /* ========== FINAL MOBILE FIX - V2 ========== */
         @media (max-width: 768px) {
           .container {
-            grid-template-columns: 1fr 1fr !important;  /* 2 columns same */
+            grid-template-columns: 1fr !important;
             gap: 1.5rem !important;
             padding: 1rem !important;
           }
           
           .left {
-            grid-column: 1 / 2 !important;
-            text-align: left !important;
+            order: 1 !important;
+            text-align: center !important;
           }
           
           .right {
-            grid-column: 2 / 3 !important;
-            margin-top: 0 !important;
+            order: 2 !important;
+            margin-top: 2rem !important;
+            width: 100% !important;
             display: flex !important;
             justify-content: center !important;
-            align-items: center !important;
           }
           
           .title {
@@ -1034,161 +1047,73 @@ export default function Home() {
           }
           
           .desc {
-            font-size: 0.9rem !important;
-            margin-left: 1.5rem !important;
+            margin-left: 0 !important;
+            text-align: center !important;
+            max-width: 100% !important;
+          }
+          
+          .desc-line {
+            display: none !important;
           }
           
           .stats-container {
-            flex-direction: row !important;
-            gap: 0.5rem !important;
+            flex-direction: column !important;
+            gap: 0.75rem !important;
           }
           
           .stat-card {
-            padding: 0.8rem 0.5rem !important;
-          }
-          
-          .stat-value {
-            font-size: 1.2rem !important;
-          }
-          
-          .stat-label {
-            font-size: 0.55rem !important;
+            width: 100% !important;
+            padding: 1rem !important;
           }
           
           .feature-grid {
             grid-template-columns: repeat(3, 1fr) !important;
-            gap: 0.4rem !important;
+            gap: 0.5rem !important;
           }
           
           .feature-item {
             padding: 0.5rem !important;
           }
           
-          .feature-icon {
-            font-size: 0.9rem !important;
-          }
-          
           .feature-name {
-            font-size: 0.7rem !important;
-          }
-          
-          .auth-buttons {
-            flex-direction: row !important;
-            gap: 0.5rem !important;
-          }
-          
-          .btn-primary, .btn-secondary {
-            width: auto !important;
-            padding: 0.5rem 1rem !important;
             font-size: 0.8rem !important;
           }
           
+          .auth-buttons {
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+            width: 100% !important;
+          }
+          
+          .btn-primary, .btn-secondary {
+            width: 100% !important;
+            padding: 0.6rem !important;
+          }
+          
           .footer {
-            flex-direction: row !important;
-            font-size: 0.7rem !important;
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+            text-align: center !important;
           }
           
           .visual {
             width: 250px !important;
             height: 250px !important;
           }
-          
-          .grid {
-            background-size: 25px 25px !important;
-          }
-          
-          .circle {
-            width: 200px !important;
-            height: 200px !important;
-          }
-          
-          .circle.c2 {
-            width: 160px !important;
-            height: 160px !important;
-          }
-          
-          .circle.c3 {
-            width: 120px !important;
-            height: 120px !important;
-          }
-          
-          .circle.c4 {
-            width: 80px !important;
-            height: 80px !important;
-          }
-          
-          .code-block {
-            width: 160px !important;
-            padding: 1rem !important;
-          }
-          
-          .code-block pre {
-            font-size: 0.6rem !important;
-          }
         }
 
-        /* Small phones */
         @media (max-width: 480px) {
-          .container {
-            gap: 1rem !important;
-          }
-          
           .title {
             font-size: 2rem !important;
           }
           
-          .stat-value {
-            font-size: 1rem !important;
-          }
-          
-          .stat-label {
-            font-size: 0.5rem !important;
-          }
-          
-          .feature-item {
-            padding: 0.4rem !important;
-          }
-          
-          .feature-name {
-            font-size: 0.65rem !important;
-          }
-          
-          .auth-buttons {
-            gap: 0.3rem !important;
-          }
-          
-          .btn-primary, .btn-secondary {
-            padding: 0.4rem 0.8rem !important;
-            font-size: 0.7rem !important;
+          .feature-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
           }
           
           .visual {
             width: 200px !important;
             height: 200px !important;
-          }
-          
-          .circle {
-            width: 160px !important;
-            height: 160px !important;
-          }
-          
-          .circle.c2 {
-            width: 130px !important;
-            height: 130px !important;
-          }
-          
-          .circle.c3 {
-            width: 100px !important;
-            height: 100px !important;
-          }
-          
-          .circle.c4 {
-            width: 70px !important;
-            height: 70px !important;
-          }
-          
-          .code-block {
-            width: 140px !important;
           }
         }
       `}</style>
