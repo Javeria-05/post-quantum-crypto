@@ -1002,50 +1002,138 @@ export default function Home() {
           border: none !important;
         }
 
-        @media (max-width: 1000px) {
+        /* ========== MOBILE RESPONSIVE FIX ========== */
+        @media (max-width: 768px) {
           .container {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 2rem;
+            padding: 1rem;
           }
           
-          .title {
-            font-size: 3.5rem;
+          .left {
+            text-align: center;
+            order: 1;
           }
           
-          .visual {
-            width: 350px;
-            height: 350px;
+          .right {
+            order: 2;
+            margin-top: 2rem;
           }
-        }
-
-        @media (max-width: 600px) {
+          
           .title {
             font-size: 2.8rem;
           }
-
+          
+          .desc-wrapper {
+            max-width: 100%;
+            margin-bottom: 2rem;
+          }
+          
+          .desc-line {
+            display: none;
+          }
+          
+          .desc {
+            margin-left: 0;
+            max-width: 100%;
+            text-align: center;
+          }
+          
           .stats-container {
             flex-direction: column;
+            gap: 1rem;
           }
-
+          
           .feature-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
           }
-
+          
           .auth-buttons {
             flex-direction: column;
+            gap: 0.5rem;
           }
-
+          
+          .btn-primary, .btn-secondary {
+            width: 100%;
+          }
+          
           .footer {
             flex-direction: column;
             gap: 0.5rem;
             text-align: center;
           }
-
+          
           .visual {
             width: 300px;
             height: 300px;
+            margin: 0 auto;
           }
+          
+          .grid {
+            background-size: 30px 30px;
+          }
+          
+          .circle {
+            width: 250px;
+            height: 250px;
+          }
+          
+          .circle.c2 {
+            width: 200px;
+            height: 200px;
+          }
+          
+          .circle.c3 {
+            width: 150px;
+            height: 150px;
+          }
+          
+          .circle.c4 {
+            width: 100px;
+            height: 100px;
+          }
+          
+          .code-block {
+            width: 200px;
+            padding: 1rem;
+          }
+          
+          .code-block pre {
+            font-size: 0.7rem;
+          }
+          
+          .modal {
+            width: 90%;
+            max-width: 320px;
+            padding: 1.5rem;
+          }
+        }
 
+        /* Small phones */
+        @media (max-width: 480px) {
+          .title {
+            font-size: 2.2rem;
+          }
+          
+          .feature-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .badge-wrapper {
+            width: 100%;
+          }
+          
+          .chip {
+            width: 100%;
+            justify-content: center;
+          }
+          
+          .visual {
+            width: 250px;
+            height: 250px;
+          }
+          
           .modal-actions {
             flex-direction: column;
           }
