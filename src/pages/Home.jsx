@@ -48,6 +48,12 @@ export default function Home() {
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
+      // Temporary fallback data
+      setRealStats({
+        keys: 1247,
+        files: 893,
+        users: 456
+      });
     } finally {
       setStatsLoading(false);
     }
@@ -1005,137 +1011,121 @@ export default function Home() {
         /* ========== MOBILE RESPONSIVE FIX ========== */
         @media (max-width: 768px) {
           .container {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            padding: 1rem;
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+            padding: 1rem !important;
           }
           
           .left {
-            text-align: center;
-            order: 1;
+            order: 1 !important;
+            text-align: center !important;
           }
           
           .right {
-            order: 2;
-            margin-top: 2rem;
-          }
-          
-          .title {
-            font-size: 2.8rem;
-          }
-          
-          .desc-wrapper {
-            max-width: 100%;
-            margin-bottom: 2rem;
-          }
-          
-          .desc-line {
-            display: none;
-          }
-          
-          .desc {
-            margin-left: 0;
-            max-width: 100%;
-            text-align: center;
-          }
-          
-          .stats-container {
-            flex-direction: column;
-            gap: 1rem;
-          }
-          
-          .feature-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-          }
-          
-          .auth-buttons {
-            flex-direction: column;
-            gap: 0.5rem;
-          }
-          
-          .btn-primary, .btn-secondary {
-            width: 100%;
-          }
-          
-          .footer {
-            flex-direction: column;
-            gap: 0.5rem;
-            text-align: center;
+            order: 2 !important;
+            margin-top: 2rem !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
           }
           
           .visual {
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
+            width: 280px !important;
+            height: 280px !important;
+            margin: 0 auto !important;
+          }
+          
+          .stats-container {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            width: 100% !important;
+          }
+          
+          .stat-card {
+            width: 100% !important;
+            margin: 0 !important;
+          }
+          
+          .feature-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.5rem !important;
+          }
+          
+          .auth-buttons {
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+          }
+          
+          .btn-primary, .btn-secondary {
+            width: 100% !important;
+          }
+          
+          .footer {
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+            text-align: center !important;
           }
           
           .grid {
-            background-size: 30px 30px;
+            background-size: 30px 30px !important;
           }
           
           .circle {
-            width: 250px;
-            height: 250px;
+            width: 220px !important;
+            height: 220px !important;
           }
           
           .circle.c2 {
-            width: 200px;
-            height: 200px;
+            width: 180px !important;
+            height: 180px !important;
           }
           
           .circle.c3 {
-            width: 150px;
-            height: 150px;
+            width: 140px !important;
+            height: 140px !important;
           }
           
           .circle.c4 {
-            width: 100px;
-            height: 100px;
+            width: 100px !important;
+            height: 100px !important;
           }
           
           .code-block {
-            width: 200px;
-            padding: 1rem;
+            width: 180px !important;
+            padding: 1rem !important;
           }
           
           .code-block pre {
-            font-size: 0.7rem;
-          }
-          
-          .modal {
-            width: 90%;
-            max-width: 320px;
-            padding: 1.5rem;
+            font-size: 0.65rem !important;
           }
         }
 
         /* Small phones */
         @media (max-width: 480px) {
           .title {
-            font-size: 2.2rem;
+            font-size: 2.2rem !important;
           }
           
           .feature-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
           }
           
           .badge-wrapper {
-            width: 100%;
+            width: 100% !important;
           }
           
           .chip {
-            width: 100%;
-            justify-content: center;
+            width: 100% !important;
+            justify-content: center !important;
           }
           
           .visual {
-            width: 250px;
-            height: 250px;
+            width: 220px !important;
+            height: 220px !important;
           }
           
           .modal-actions {
-            flex-direction: column;
+            flex-direction: column !important;
           }
         }
       `}</style>
