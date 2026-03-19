@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import { auth } from './firebase/config';
-import { ThemeProvider } from './context/ThemeContext'; // 👈 Import
+import { ThemeProvider } from './context/ThemeContext';
+import CustomCursor from './components/CustomCursor'; // 👈 Import cursor
 import './App.css';
 
 function App() {
@@ -25,7 +26,9 @@ function App() {
   };
 
   return (
-    <ThemeProvider> {/* 👈 Wrap */}
+    <ThemeProvider>
+      {/* 👇 Cursor sab pages par dikhega */}
+      <CustomCursor />
       <RouterProvider router={routerWithUser} />
     </ThemeProvider>
   );
