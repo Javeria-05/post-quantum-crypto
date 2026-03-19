@@ -264,26 +264,18 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Auth Buttons with Hover Effects */}
-          <div className="auth-wrapper">
-            {!user ? (
-              <div className="auth-buttons">
-                <button className="btn-primary" onClick={() => navigate("/signup")}>
-                  <span>Sign up</span>
-                  <span className="btn-glow"></span>
-                </button>
-                <button className="btn-secondary" onClick={() => navigate("/login")}>
-                  <span>Sign in</span>
-                </button>
-              </div>
-            ) : (
-              <button className="btn-primary" onClick={() => navigate("/dashboard")}>
-                <span>Dashboard</span>
-                <span className="btn-glow"></span>
-              </button>
-            )}
-          </div>
-
+          {/* Auth Buttons - Always Sign up and Sign in */}
+<div className="auth-wrapper">
+  <div className="auth-buttons">
+    <button className="btn-primary" onClick={() => navigate("/signup")}>
+      <span>Sign up</span>
+      <span className="btn-glow"></span>
+    </button>
+    <button className="btn-secondary" onClick={() => navigate("/login")}>
+      <span>Sign in</span>
+    </button>
+  </div>
+</div>
           {/* Footer with Links */}
           <div className="footer">
             <span className="footer-text">© 2026 · Javeria Irum</span>
@@ -1021,34 +1013,52 @@ export default function Home() {
           border: none !important;
         }
 
-        /* ========== FINAL MOBILE FIX - V2 ========== */
+        /* ========== MOBILE FIX - SIDE BY SIDE ========== */
         @media (max-width: 768px) {
           .container {
-            grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
+            grid-template-columns: 1fr 1fr !important;  /* 2 columns side by side */
+            gap: 1rem !important;
             padding: 1rem !important;
           }
           
           .left {
-            order: 1 !important;
-            text-align: center !important;
+            grid-column: 1 / 2 !important;  /* Left column */
+            text-align: left !important;
           }
           
           .right {
-            order: 2 !important;
-            margin-top: 2rem !important;
-            width: 100% !important;
+            grid-column: 2 / 3 !important;  /* Right column */
             display: flex !important;
             justify-content: center !important;
+            align-items: center !important;
           }
           
+          /* Scale down everything */
           .title {
-            font-size: 2.5rem !important;
+            font-size: 1.8rem !important;
+            line-height: 1.2 !important;
+            margin-bottom: 0.5rem !important;
+          }
+          
+          .title-orb, .title-orb.orb2 {
+            width: 80px !important;
+            height: 80px !important;
+            filter: blur(30px) !important;
+          }
+          
+          .badge-wrapper {
+            margin-bottom: 0.75rem !important;
+          }
+          
+          .chip {
+            padding: 0.3rem 0.8rem !important;
+            font-size: 0.7rem !important;
           }
           
           .desc {
+            font-size: 0.8rem !important;
             margin-left: 0 !important;
-            text-align: center !important;
+            line-height: 1.4 !important;
             max-width: 100% !important;
           }
           
@@ -1057,63 +1067,151 @@ export default function Home() {
           }
           
           .stats-container {
-            flex-direction: column !important;
-            gap: 0.75rem !important;
+            gap: 0.25rem !important;
+            margin-bottom: 1rem !important;
           }
           
           .stat-card {
-            width: 100% !important;
-            padding: 1rem !important;
+            padding: 0.5rem 0.25rem !important;
+          }
+          
+          .stat-value {
+            font-size: 1rem !important;
+          }
+          
+          .stat-label {
+            font-size: 0.5rem !important;
           }
           
           .feature-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 0.5rem !important;
+            gap: 0.25rem !important;
+            margin-bottom: 1rem !important;
           }
           
           .feature-item {
-            padding: 0.5rem !important;
+            padding: 0.4rem !important;
+            gap: 0.3rem !important;
           }
           
-          .feature-name {
+          .feature-icon-wrapper {
+            width: 22px !important;
+            height: 22px !important;
+          }
+          
+          .feature-icon {
             font-size: 0.8rem !important;
           }
           
+          .feature-name {
+            font-size: 0.65rem !important;
+          }
+          
           .auth-buttons {
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-            width: 100% !important;
+            gap: 0.25rem !important;
+            margin-bottom: 1rem !important;
           }
           
           .btn-primary, .btn-secondary {
-            width: 100% !important;
-            padding: 0.6rem !important;
+            padding: 0.4rem 0.8rem !important;
+            font-size: 0.7rem !important;
           }
           
           .footer {
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-            text-align: center !important;
+            font-size: 0.6rem !important;
+            gap: 0.25rem !important;
           }
           
+          .footer-links {
+            gap: 0.25rem !important;
+          }
+          
+          /* Right side scaling */
           .visual {
-            width: 250px !important;
-            height: 250px !important;
+            width: 160px !important;
+            height: 160px !important;
+          }
+          
+          .grid {
+            background-size: 15px 15px !important;
+          }
+          
+          .circle {
+            width: 130px !important;
+            height: 130px !important;
+          }
+          
+          .circle.c2 {
+            width: 100px !important;
+            height: 100px !important;
+          }
+          
+          .circle.c3 {
+            width: 70px !important;
+            height: 70px !important;
+          }
+          
+          .circle.c4 {
+            width: 40px !important;
+            height: 40px !important;
+          }
+          
+          .code-block {
+            width: 120px !important;
+            padding: 0.5rem !important;
+          }
+          
+          .code-block pre {
+            font-size: 0.45rem !important;
+            line-height: 1.2 !important;
           }
         }
 
+        /* Small phones */
         @media (max-width: 480px) {
-          .title {
-            font-size: 2rem !important;
+          .container {
+            gap: 0.5rem !important;
+            padding: 0.5rem !important;
           }
           
-          .feature-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+          .title {
+            font-size: 1.5rem !important;
+          }
+          
+          .stat-value {
+            font-size: 0.9rem !important;
+          }
+          
+          .feature-name {
+            font-size: 0.6rem !important;
           }
           
           .visual {
-            width: 200px !important;
-            height: 200px !important;
+            width: 140px !important;
+            height: 140px !important;
+          }
+          
+          .circle {
+            width: 110px !important;
+            height: 110px !important;
+          }
+          
+          .circle.c2 {
+            width: 85px !important;
+            height: 85px !important;
+          }
+          
+          .circle.c3 {
+            width: 60px !important;
+            height: 60px !important;
+          }
+          
+          .circle.c4 {
+            width: 35px !important;
+            height: 35px !important;
+          }
+          
+          .code-block {
+            width: 100px !important;
           }
         }
       `}</style>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { useTheme } from '../context/ThemeContext';
@@ -17,12 +17,10 @@ export default function Navbar({ user }) {
     navigate('/');
   };
 
-  const closeMenu = () => setMenuOpen(false);
-
   const handleProtectedNav = (route, name) => {
     if (user) {
       navigate(route);
-      closeMenu();
+      setMenuOpen(false);
     } else {
       setModalMessage(`Please login to access ${name}`);
       setShowModal(true);
@@ -32,102 +30,77 @@ export default function Navbar({ user }) {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        {/* Logo - Left */}
-        <Link to="/" className="logo" onClick={closeMenu}>
+
+        {/* LEFT - LOGO */}
+        <div className="logo" onClick={() => navigate('/')}>
           QuantumSafe
-        </Link>
+        </div>
 
-        {/* Hamburger - Right (Mobile only) */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="hamburger"
-        >
-          ☰
-        </button>
+        {/* RIGHT SIDE */}
+        <div className={`nav-right ${menuOpen ? 'show' : ''}`}>
 
-        {/* Navigation Links */}
-        <div className={`nav-links ${menuOpen ? 'show' : ''}`}>
-          <Link to="/" className="nav-link" onClick={closeMenu}>
-            Home
-          </Link>
-          
-          <button
-            onClick={() => handleProtectedNav('/dashboard', 'Dashboard')}
-            className="nav-link"
-          >
-            Dashboard
-          </button>
+          {/* LINKS */}
+          <button onClick={() => navigate('/')} className="nav-link">Home</button>
+          <button onClick={() => handleProtectedNav('/dashboard', 'Dashboard')} className="nav-link">Dashboard</button>
+          <button onClick={() => handleProtectedNav('/history', 'History')} className="nav-link">History</button>
+          <button onClick={() => handleProtectedNav('/settings', 'Settings')} className="nav-link">Settings</button>
 
-          <button
-            onClick={() => handleProtectedNav('/history', 'History')}
-            className="nav-link"
-          >
-            History
-          </button>
-
-          <button
-            onClick={() => handleProtectedNav('/settings', 'Settings')}
-            className="nav-link"
-          >
-            Settings
-          </button>
-
-          <button
-            onClick={() => {
-              toggleDarkMode();
-              closeMenu();
-            }}
-            className="theme-toggle nav-link"
-          >
+          {/* THEME */}
+          <button className="nav-link" onClick={toggleDarkMode}>
             {darkMode ? '☀️' : '🌙'}
           </button>
 
+          {/* AUTH */}
           {user ? (
-            <button
-              onClick={() => {
-                handleLogout();
-                closeMenu();
-              }}
-              className="logout-btn"
-            >
+            <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>
           ) : (
             <>
               <button
+                className="nav-link"
                 onClick={() => {
                   setModalMessage("Please sign in to continue");
                   setShowModal(true);
                 }}
-                className="nav-link"
               >
                 Sign in
               </button>
 
               <button
+                className="nav-link"
                 onClick={() => {
-                  setModalMessage("Create an account to get started");
+                  setModalMessage("Create your account");
                   setShowModal(true);
                 }}
-                className="nav-link"
               >
                 Sign up
               </button>
             </>
           )}
         </div>
+
+        {/* HAMBURGER */}
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </button>
+
       </div>
 
-      {/* Modal */}
+      {/* MODAL */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
             <h3>🔒 Login Required</h3>
             <p>{modalMessage}</p>
+
             <div className="modal-actions">
-              <button onClick={() => { setShowModal(false); navigate('/login'); }}>Sign in</button>
-              <button onClick={() => { setShowModal(false); navigate('/signup'); }}>Sign up</button>
+              <button onClick={() => navigate('/login')}>
+                Sign in
+              </button>
+              <button className="primary-btn" onClick={() => navigate('/signup')}>
+                Sign up
+              </button>
             </div>
           </div>
         </div>
@@ -140,40 +113,40 @@ export default function Navbar({ user }) {
           position: sticky;
           top: 0;
           z-index: 1000;
-          width: 100%;
         }
 
         .nav-container {
           max-width: 1200px;
-          margin: 0 auto;
+          margin: auto;
           padding: 1rem 2rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          position: relative;
         }
 
         .logo {
-          font-size: 1.5rem;
+          font-size: 1.4rem;
           font-weight: 600;
           color: var(--primary);
-          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
         }
 
         .nav-link {
-          color: var(--text) !important;  /* Force normal text color */
-          text-decoration: none;
-          font-size: 1rem;
-          font-weight: 500;
-          cursor: pointer;
-          background: transparent !important;  /* No background */
+          background: transparent;
           border: none;
-          padding: 0.5rem 0;
-          transition: color 0.2s ease;
+          color: var(--text);
+          cursor: pointer;
+          font-size: 1rem;
         }
 
         .nav-link:hover {
-          color: var(--primary) !important;  /* Hover effect */
+          color: var(--primary);
         }
 
         .logout-btn {
@@ -182,124 +155,74 @@ export default function Navbar({ user }) {
           border: none;
           padding: 0.5rem 1.5rem;
           border-radius: 8px;
-          font-size: 1rem;
-          font-weight: 500;
           cursor: pointer;
-          transition: transform 0.2s ease;
+          font-weight: 500;
         }
 
         .logout-btn:hover {
           transform: translateY(-2px);
         }
 
+        .primary-btn {
+          background: linear-gradient(135deg, var(--primary), var(--secondary));
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+        }
+
         .hamburger {
           display: none;
           background: none;
           border: none;
-          font-size: 2rem;
-          cursor: pointer;
+          font-size: 1.8rem;
           color: var(--text);
-          padding: 0.25rem 0.5rem;
         }
 
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 2rem;
-        }
-
-        /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
-          .nav-container {
-            padding: 0.75rem 1rem;
-          }
-
           .hamburger {
             display: block;
           }
 
-          .nav-links {
+          .nav-right {
             display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
             flex-direction: column;
-            padding: 1rem;
-            gap: 0.5rem;
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 1rem;
           }
 
-          .nav-links.show {
+          .nav-right.show {
             display: flex;
           }
 
           .nav-link, .logout-btn {
             width: 100%;
             text-align: center;
-            padding: 0.75rem;
-          }
-          
-          .nav-link {
-            color: var(--text) !important;
           }
         }
 
-        /* Modal Styles */
         .modal-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.6);
+          background: rgba(0,0,0,0.6);
           display: flex;
           align-items: center;
           justify-content: center;
           z-index: 2000;
-          padding: 1rem;
         }
 
         .modal-box {
           background: var(--card-bg);
           padding: 2rem;
           border-radius: 12px;
-          width: 100%;
-          max-width: 320px;
-          position: relative;
+          width: 320px;
           text-align: center;
-        }
-
-        .modal-close {
-          position: absolute;
-          top: 0.5rem;
-          right: 0.5rem;
-          background: none;
-          border: none;
-          font-size: 1.2rem;
-          cursor: pointer;
-          color: var(--gray);
         }
 
         .modal-actions {
           display: flex;
           gap: 0.5rem;
           margin-top: 1rem;
-        }
-
-        .modal-actions button {
-          flex: 1;
-          padding: 0.6rem;
-          border: 1px solid var(--border);
-          border-radius: 6px;
-          background: transparent;
-          color: var(--text);
-          cursor: pointer;
-        }
-
-        .modal-actions button:first-child {
-          background: linear-gradient(135deg, var(--primary), var(--secondary));
-          color: white;
-          border: none;
         }
       `}</style>
     </nav>
